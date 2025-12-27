@@ -378,6 +378,19 @@ impl<'b, 'a: 'b> FdtNode<'b, 'a> {
 
         interrupt_cells
     }
+
+    pub fn parent(self) -> Option<FdtNode<'b, 'a>> {
+        if let Some(parent_props) = self.parent_props {
+            Some(FdtNode {
+                name: "",
+                props: parent_props,
+                header: self.header,
+                parent_props: None,
+            })
+        } else {
+            None
+        }
+    }
 }
 
 /// The number of cells (big endian u32s) that addresses and sizes take
